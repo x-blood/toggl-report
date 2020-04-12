@@ -16,6 +16,7 @@ provider:
     STAGE: ${opt:stage, 'dev'}
     SLACK_WEB_HOOK_URL: ${ssm:/toggl-report/${opt:stage, 'dev'}/slack-web-hook-url}
     SLACK_CHANNEL_NAME: ${ssm:/toggl-report/${opt:stage, 'dev'}/slack-channel-name}
+    # TOBE: Report per workspace id
     TOGGL_WORKSPACE_ID: ${ssm:/toggl-report/${opt:stage, 'dev'}/toggl-workspace-id}
     TOGGL_API_TOKEN: ${ssm:/toggl-report/toggl-api-token}
 
@@ -31,6 +32,6 @@ custom:
 functions:
   togglReport:
     handler: bin/main
+    timeout: 900
     events:
       - schedule: cron(0 0 * * ? *)
-    environment: ${self:custom.environment.${self:provider.stage}}
