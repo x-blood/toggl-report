@@ -8,4 +8,7 @@ clean:
 	rm -rf ./bin ./vendor Gopkg.lock
 
 deploy: clean build
-	sls deploy --verbose
+	sls deploy --verbose --aws-profile $(PROFILE)
+
+deploy_prd: clean build
+	sls deploy --verbose --stage prd --aws-profile $(PROFILE)

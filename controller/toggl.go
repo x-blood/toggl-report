@@ -14,7 +14,7 @@ import (
 
 func Do() error {
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
-	url := fmt.Sprintf("https://www.toggl.com/api/v8/time_entries?workspace_id=%s&start_date=%s&end_date=%s", common.GetTogglWorkspaceID(), common.GetStartDate(), common.GetEndDate())
+	url := fmt.Sprintf("https://www.toggl.com/api/v8/time_entries?start_date=%s&end_date=%s", common.GetStartDate(), common.GetEndDate())
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		log.Fatal(err)
