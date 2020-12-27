@@ -1,7 +1,7 @@
 # toggl-report
 
 serverless framework  
-go1.12.1
+go1.15.6
 
 ## What's this
 - TogglのレポートをSlackに出力するサーバーレスアプリケーション
