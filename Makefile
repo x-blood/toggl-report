@@ -6,8 +6,8 @@ build:
 clean:
 	rm -rf ./bin
 
-deploy: clean build
+deploy:
 	sls deploy --verbose --aws-profile $(PROFILE)
 
-deploy_prd: clean build
+deploy_prd:
 	sls deploy --verbose --stage prd --aws-profile $(PROFILE)
