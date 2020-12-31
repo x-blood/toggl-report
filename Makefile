@@ -1,14 +1,13 @@
 .PHONY: build clean deploy
 
 build:
-	dep ensure -v
 	env GOOS=linux go build -ldflags="-s -w" -o bin/main handlers/main.go
 
 clean:
-	rm -rf ./bin ./vendor Gopkg.lock
+	rm -rf ./bin
 
-deploy: clean build
+deploy:
 	sls deploy --verbose --aws-profile $(PROFILE)
 
-deploy_prd: clean build
+deploy_prd:
 	sls deploy --verbose --stage prd --aws-profile $(PROFILE)
