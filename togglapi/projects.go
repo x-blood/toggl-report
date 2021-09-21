@@ -13,7 +13,7 @@ import (
 
 func GetProjectName(projectID uint64) (string, error) {
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
-	url := fmt.Sprintf("https://www.toggl.com/api/v8/projects/%d", projectID)
+	url := fmt.Sprintf("https://api.track.toggl.com/api/v8/projects/%d", projectID)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return "", err

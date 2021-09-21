@@ -27,7 +27,7 @@ func postSlack(slackFormat domain.SlackFormat) error {
 		IconEmoji:   ":toggl:",
 		Username:    USERNAME,
 		Channel:     common.GetSlackChannel(),
-		Text:        fmt.Sprintf("%sのレポートです。あなたは%s働きました。", common.GetTargetDate(), slackFormat.GetTotalDurationText()),
+		Text:        fmt.Sprintf("%sのレポートです。チャージ時間は%sです。", common.GetTargetDate(), slackFormat.GetTotalDurationText()),
 		Attachments: []slack.Attachment{attachment},
 	}
 	err := slack.Send(common.GetSlackWebHookURL(), "", payload)
