@@ -10,5 +10,5 @@ go1.15.6
 ## Toggl API で Workspace IDを取得する方法
 Basic Authで以下のEndpointを実行する
 ```
-https://www.toggl.com/api/v8/workspaces
+https://api.track.toggl.com/api/v8/workspaces
 ```
