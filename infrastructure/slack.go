@@ -2,13 +2,14 @@ package infrastructure
 
 import (
 	"fmt"
-	"github.com/ashwanthkumar/slack-go-webhook"
 	"toggl-report/common"
 	"toggl-report/domain"
+
+	"github.com/ashwanthkumar/slack-go-webhook"
 )
 
 const (
-	USERNAME = "Toggl Daily Report"
+	USERNAME = "Daily Report"
 )
 
 func NotifyToSlack(slackFormat domain.SlackFormat) error {
@@ -24,7 +25,7 @@ func postSlack(slackFormat domain.SlackFormat) error {
 	color := "good"
 	attachment.Color = &color
 	payload := slack.Payload{
-		IconEmoji:   ":toggl:",
+		IconEmoji:   ":city_sunrise:",
 		Username:    USERNAME,
 		Channel:     common.GetSlackChannel(),
 		Text:        fmt.Sprintf("%sのレポートです。チャージ時間は%sです。", common.GetTargetDate(), slackFormat.GetTotalDurationText()),

@@ -111,7 +111,7 @@ func getProjectList(timeEntries []TimeEntry) ([]Project, error) {
 	for _, timeEntry := range timeEntries {
 		if _, ok := projectNameMap[timeEntry.ProjectID]; !ok {
 			if timeEntry.ProjectID != 0 {
-				projectName, err := togglapi.GetProjectName(timeEntry.ProjectID)
+				projectName, err := togglapi.GetProjectName(timeEntry.ProjectID, timeEntry.WorkspaceID)
 				if err != nil {
 					return nil, err
 				}

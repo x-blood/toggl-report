@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: AWS SAM Template for toggl-report
+
+Parameters:
+  Stage:
+    Type: String
+    Default: dev
+    Description: Deployment stage
+
+Globals:
+  Function:
+    Timeout: 180
+    Runtime: provided.al2023
+    Architectures:
+      - x86_64
+    Environment:
+      Variables:
+        STAGE: !Ref Stage
+        SLACK_WEB_HOOK_URL: !Sub '{{resolve:ssm:/toggl-report/${Stage}/slack-web-hook-url}}'
+        SLACK_CHANNEL_NAME: !Sub '{{resolve:ssm:/toggl-report/${Stage}/slack-channel-name}}'
+        TOGGL_WORKSPACE_ID: !Sub '{{resolve:ssm:/toggl-report/${Stage}/toggl-workspace-id}}'
+        TOGGL_API_TOKEN: '{{resolve:ssm:/toggl-report/toggl-api-token}}'
+
+Resources:
+  TogglReportFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      BuildMethod: go1.x
+    Properties:
+      CodeUri: ./handlers/
+      Handler: bootstrap
+      MemorySize: 128
+      Policies:
+        - CloudWatchLogsFullAccess
+      Events:
+        ScheduledEvent:
+          Type: Schedule
+          Properties:
+            Schedule: cron(0 0 * * ? *)
+            Description: Schedule to run toggl report daily
+            Enabled: true
+
+Outputs:
+  TogglReportFunction:
+    Description: "Toggl Report Lambda Function ARN"
+    Value: !GetAtt TogglReportFunction.Arn
+  TogglReportFunctionRole:
+    Description: "Implicit IAM Role created for Toggl Report function"
+    Value: !GetAtt TogglReportFunctionRole.Arn
