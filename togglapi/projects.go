@@ -11,9 +11,9 @@ import (
 	"toggl-report/togglapimodel"
 )
 
-func GetProjectName(projectID uint64) (string, error) {
+func GetProjectName(projectID uint64, workspaceID uint64) (string, error) {
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
-	url := fmt.Sprintf("https://api.track.toggl.com/api/v8/projects/%d", projectID)
+	url := fmt.Sprintf("https://api.track.toggl.com/api/v9/workspaces/%d/projects/%d", workspaceID, projectID)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return "", err
@@ -30,7 +30,7 @@ func GetProjectName(projectID uint64) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return project.Data.Name, nil
+	return project.Name, nil
 }
 
 func getContent(resp *http.Response) []byte {

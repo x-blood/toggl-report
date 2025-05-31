@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
 	"toggl-report/common"
 	"toggl-report/domain"
@@ -14,7 +15,7 @@ import (
 
 func Do() error {
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
-	url := fmt.Sprintf("https://api.track.toggl.com/api/v8/time_entries?start_date=%s&end_date=%s", common.GetStartDate(), common.GetEndDate())
+	url := fmt.Sprintf("https://api.track.toggl.com/api/v9/me/time_entries?start_date=%s&end_date=%s", common.GetStartDate(), common.GetEndDate())
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		log.Fatal(err)
@@ -34,7 +35,16 @@ func Do() error {
 		log.Fatal(err)
 	}
 
-	slackFormat, err := domain.GetSlackFormat(timeEntries)
+	workspaceIDStr := common.GetTogglWorkspaceID()
+	workspaceID, err := strconv.ParseUint(workspaceIDStr, 10, 64)
+	if err != nil {
+		log.Fatal(err)
+		return err
+	}
+
+	filteredTimeEntries := domain.FilterByWorkspaceID(timeEntries, workspaceID)
+
+	slackFormat, err := domain.GetSlackFormat(filteredTimeEntries)
 	if err != nil {
 		log.Fatal(err)
 		return err

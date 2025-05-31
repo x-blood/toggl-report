@@ -1,6 +1,9 @@
 # IDEA
 .idea
 
+# AWS SAM directories
+.aws-sam
+
 # Serverless directories
 .serverless
 .dynamodb

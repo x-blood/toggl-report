@@ -12,3 +12,13 @@ type TimeEntry struct {
 	Duration    uint64    `json:"duration"`
 	Description string    `json:"description"`
 }
+
+func FilterByWorkspaceID(entries []TimeEntry, workspaceID uint64) []TimeEntry {
+	var filtered []TimeEntry
+	for _, entry := range entries {
+		if entry.WorkspaceID == workspaceID {
+			filtered = append(filtered, entry)
+		}
+	}
+	return filtered
+}

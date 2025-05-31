@@ -1,7 +1,7 @@
 # toggl-report
 
-serverless framework  
-go1.15.6
+AWS SAM  
+go1.24.3
 
 ## What's this
 - TogglのレポートをSlackに出力するサーバーレスアプリケーション
@@ -10,5 +10,5 @@ go1.15.6
 ## Toggl API で Workspace IDを取得する方法
 Basic Authで以下のEndpointを実行する
 ```
-https://api.track.toggl.com/api/v8/workspaces
+https://api.track.toggl.com/api/v9/workspaces
 ```
