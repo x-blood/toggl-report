@@ -35,7 +35,6 @@ func Do() error {
 		log.Fatal(err)
 	}
 
-	// ワークスペースIDを取得して、uint64型に変換
 	workspaceIDStr := common.GetTogglWorkspaceID()
 	workspaceID, err := strconv.ParseUint(workspaceIDStr, 10, 64)
 	if err != nil {
@@ -43,7 +42,6 @@ func Do() error {
 		return err
 	}
 
-	// 指定されたワークスペースIDに一致するTimeEntryだけをフィルタリング
 	filteredTimeEntries := domain.FilterByWorkspaceID(timeEntries, workspaceID)
 
 	slackFormat, err := domain.GetSlackFormat(filteredTimeEntries)

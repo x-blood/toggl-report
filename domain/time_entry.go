@@ -13,7 +13,6 @@ type TimeEntry struct {
 	Description string    `json:"description"`
 }
 
-// FilterByWorkspaceID は指定されたワークスペースIDに一致するTimeEntryのみを返し、一致しないものを除外します
 func FilterByWorkspaceID(entries []TimeEntry, workspaceID uint64) []TimeEntry {
 	var filtered []TimeEntry
 	for _, entry := range entries {
