@@ -1,7 +1,7 @@
 # toggl-report
 
-serverless framework  
-go1.15.6
+AWS SAM  
+go1.24.3
 
 ## What's this
 - TogglのレポートをSlackに出力するサーバーレスアプリケーション
